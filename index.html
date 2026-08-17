@@ -206,7 +206,6 @@ function borrarNomina(i) {
         datos.splice(i, 1);
         localStorage.setItem('mis_nominas', JSON.stringify(datos));
         
-        // Corrección de índice al borrar
         if (editando === i) {
             cancelarEdicion();
         } else if (editando !== null && editando > i) {
