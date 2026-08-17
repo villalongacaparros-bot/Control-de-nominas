@@ -5,290 +5,238 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Control de Nóminas - Policía Local</title>
 <style>
-body{font-family:system-ui,sans-serif;background:#f4f4f9;margin:0;padding:15px;color:#333}
-h1{text-align:center;color:#2c3e50;font-size:1.5rem}
-.card{background:#fff;padding:15px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,.1);margin-bottom:15px}
-h3{margin-top:0;color:#2c3e50}
-label{display:block;margin-top:10px;font-weight:bold;font-size:.9rem}
-input{width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box;font-size:1rem}
-button{background:#3498db;color:white;border:0;padding:12px;width:100%;border-radius:5px;font-size:1rem;font-weight:bold;margin-top:15px;cursor:pointer}
-.secondary{background:#7f8c8d}
-.danger{background:#c0392b}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.total{font-size:1.2rem;font-weight:bold;margin-top:12px}
-.net{color:#27ae60}
-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.84rem}
-th,td{border-bottom:1px solid #ddd;padding:8px;text-align:left}
-th{background:#f8f9fa}
-.right{text-align:right}
-.small{font-size:.8rem;color:#666}
-@media(max-width:600px){.grid{grid-template-columns:1fr}}
+body { font-family: system-ui, sans-serif; background: #f4f4f9; margin: 0; padding: 15px; color: #333; }
+h1 { text-align: center; color: #2c3e50; font-size: 1.5rem; }
+.card { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,.1); margin-bottom: 15px; }
+h3 { margin-top: 0; color: #2c3e50; }
+label { display: block; margin-top: 10px; font-weight: bold; font-size: .9rem; }
+input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 1rem; }
+button { background: #3498db; color: white; border: 0; padding: 12px; width: 100%; border-radius: 5px; font-size: 1rem; font-weight: bold; margin-top: 15px; cursor: pointer; }
+.secondary { background: #7f8c8d; }
+.danger { background: #c0392b; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.total { font-size: 1.2rem; font-weight: bold; margin-top: 12px; }
+.net { color: #27ae60; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: .84rem; }
+th, td { border-bottom: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background: #f8f9fa; }
+.small { font-size: .8rem; color: #666; }
+@media(max-width: 600px) { .grid { grid-template-columns: 1fr; } }
 </style>
 </head>
+
 <body>
 
-<h1>Control de Nóminas</h1><div style="text-align:center;color:#7f8c8d;font-size:1rem;font-weight:600;margin-top:-10px;margin-bottom:15px;">Policía Local Pollença</div>
-
-<div class="card">
-<h3>Conceptos fijos</h3>
-<p class="small">Importes tomados de la nómina de julio de 2026. Puedes modificarlos si cambian.</p>
-
-<div class="grid">
-<div><label>Sueldo base (€)</label><input type="number" id="base" value="887.32" step="0.01"></div>
-<div><label>Trienios (€)</label><input type="number" id="trienios" value="271.54" step="0.01"></div>
-<div><label>Complemento de destino (€)</label><input type="number" id="destino" value="458.87" step="0.01"></div>
-<div><label>Complemento específico (€)</label><input type="number" id="especifico" value="1355.10" step="0.01"></div>
-<div><label>Indemnización por residencia (€)</label><input type="number" id="residencia" value="79.30" step="0.01"></div>
-<div><label>Gratificaciones por turnos (€)</label><input type="number" id="turnos" value="167.58" step="0.01"></div>
-<div><label>Ayuda escolaridad / niños (€)</label><input type="number" id="ayuda" value="162.72" step="0.01"></div>
-<div><label>Carrera profesional (€)</label><input type="number" id="carrera" value="0" step="0.01"></div>
-</div>
+<h1>Control de Nóminas</h1>
+<div style="text-align:center; color:#7f8c8d; font-size:1rem; font-weight:600; margin-top:-10px; margin-bottom:15px;">
+    Policía Local Pollença
 </div>
 
 <div class="card">
-<h3>Horas extraordinarias</h3>
-<div class="grid">
-<div><label>Horas normales × 37 €</label><input type="number" id="hn" value="0" min="0"></div>
-<div><label>Horas festivas × 42 €</label><input type="number" id="hf" value="0" min="0"></div>
-<div><label>Horas nocturnas × 48 €</label><input type="number" id="hno" value="0" min="0"></div>
-<div><label>Horas festivas nocturnas × 54 €</label><input type="number" id="hfn" value="0" min="0"></div>
-<div><label>Sábados trabajados × 35 €</label><input type="number" id="sabados" value="0" min="0"></div>
-<div><label>Domingos trabajados × 35 €</label><input type="number" id="domingos" value="0" min="0"></div>
-</div>
-</div>
-
-<div class="card">
-<h3>Deducciones por porcentaje</h3>
-<p class="small">Los porcentajes están calculados a partir de tu nómina de julio de 2026. La aplicación calcula automáticamente los euros según la base correspondiente.</p>
-<div class="grid">
-<div><label>Contingencias comunes (%)</label><input type="number" id="pcc" value="6.46" step="0.01"></div>
-<div><label>MEI (%)</label><input type="number" id="pmei" value="0.15" step="0.01"></div>
-<div><label>Formación profesional (%)</label><input type="number" id="pformacion" value="0.10" step="0.01"></div>
-<div><label>IRPF (%)</label><input type="number" id="pirpf" value="18.19" step="0.01"></div>
-</div>
-<p class="small">En la nómina de julio de 2026 la base SS fue 3.852,57 €, formada por 3.382,43 € de devengos + 470,14 € de prorrata de pagas extras. El IRPF (18,19 %) se aplicó sobre 3.382,43 €. La prorrata queda incorporada como 470,14 € y podrá hacerse editable si tus nóminas futuras la modifican.</p>
+    <h3>Conceptos fijos</h3>
+    <p class="small">Importes tomados de la nómina de julio de 2026. Puedes modificarlos si cambian.</p>
+    <div class="grid">
+        <div><label>Sueldo base (€)</label><input type="number" id="base" value="887.32" step="0.01"></div>
+        <div><label>Trienios (€)</label><input type="number" id="trienios" value="271.54" step="0.01"></div>
+        <div><label>Complemento de destino (€)</label><input type="number" id="destino" value="458.87" step="0.01"></div>
+        <div><label>Complemento específico (€)</label><input type="number" id="especifico" value="1355.10" step="0.01"></div>
+        <div><label>Indemnización por residencia (€)</label><input type="number" id="residencia" value="79.30" step="0.01"></div>
+        <div><label>Gratificaciones por turnos (€)</label><input type="number" id="turnos" value="167.58" step="0.01"></div>
+        <div><label>Ayuda escolaridad / niños (€)</label><input type="number" id="ayuda" value="162.72" step="0.01"></div>
+        <div><label>Carrera profesional (€)</label><input type="number" id="carrera" value="0" step="0.01"></div>
+    </div>
 </div>
 
 <div class="card">
-<h3>Resumen</h3>
-<div id="resumen"></div>
-</div>
-<div class="card">
-<h3>Mes de cobro</h3>
-<button class="secondary" onclick="nuevoMes()">＋ Nuevo mes</button>
-<p class="small">Guarda cada registro por el mes en que realmente cobrarás la nómina. Las horas, refuerzos y festivos que vayas haciendo se acumulan en ese registro y puedes editarlo tantas veces como necesites.</p>
-<label>Mes y año de cobro</label>
-<input type="text" id="mes" placeholder="Ej.: Octubre 2026">
-<button id="btnGuardar" onclick="guardarNomina()">Guardar mes</button>
-<button class="secondary" id="btnCancelar" onclick="cancelarEdicion()" style="display:none">Cancelar edición</button>
+    <h3>Horas extraordinarias</h3>
+    <div class="grid">
+        <div><label>Horas normales × 37 €</label><input type="number" id="hn" value="0" min="0"></div>
+        <div><label>Horas festivas × 42 €</label><input type="number" id="hf" value="0" min="0"></div>
+        <div><label>Horas nocturnas × 48 €</label><input type="number" id="hno" value="0" min="0"></div>
+        <div><label>Horas festivas nocturnas × 54 €</label><input type="number" id="hfn" value="0" min="0"></div>
+        <div><label>Sábados trabajados × 35 €</label><input type="number" id="sabados" value="0" min="0"></div>
+        <div><label>Domingos trabajados × 35 €</label><input type="number" id="domingos" value="0" min="0"></div>
+    </div>
 </div>
 
+<div class="card">
+    <h3>Deducciones por porcentaje</h3>
+    <div class="grid">
+        <div><label>Contingencias comunes (%)</label><input type="number" id="pcc" value="6.46" step="0.01"></div>
+        <div><label>MEI (%)</label><input type="number" id="pmei" value="0.15" step="0.01"></div>
+        <div><label>Formación profesional (%)</label><input type="number" id="pformacion" value="0.10" step="0.01"></div>
+        <div><label>IRPF (%)</label><input type="number" id="pirpf" value="18.19" step="0.01"></div>
+    </div>
+</div>
 
 <div class="card">
-<h3>Copia de seguridad</h3>
-<p class="small">Guarda una copia de todos tus meses en un archivo. Puedes recuperarla si cambias de móvil o de navegador.</p>
-<button onclick="exportarDatos()">📥 Exportar datos</button>
-<input type="file" id="importFile" accept=".json,application/json" style="display:none" onchange="importarDatos(event)">
-<button class="secondary" onclick="document.getElementById('importFile').click()">📤 Importar datos</button>
+    <h3>Resumen</h3>
+    <div id="resumen"></div>
 </div>
+
 <div class="card">
-<h3>Meses guardados</h3>
-<p class="small">Pulsa sobre un mes para abrirlo y añadir nuevas horas, refuerzos o modificar cualquier dato.</p>
-<table>
-<thead><tr><th>Mes de cobro</th><th>Bruto</th><th>Deducciones</th><th>Neto</th></tr></thead>
-<tbody id="historial"></tbody>
-</table>
+    <h3>Mes de cobro</h3>
+    <button class="secondary" onclick="nuevoMes()">＋ Nuevo mes</button>
+    <label>Mes y año de cobro</label>
+    <input type="text" id="mes" placeholder="Ej.: Octubre 2026">
+    <button id="btnGuardar" onclick="guardarNomina()">Guardar mes</button>
+    <button class="secondary" id="btnCancelar" onclick="cancelarEdicion()" style="display:none">Cancelar edición</button>
+</div>
+
+<div class="card">
+    <h3>Meses guardados</h3>
+    <table>
+        <thead>
+            <tr><th>Mes</th><th>Bruto</th><th>Deducciones</th><th>Neto</th></tr>
+        </thead>
+        <tbody id="historial"></tbody>
+    </table>
 </div>
 
 <script>
-const tarifas={hn:37,hf:42,hno:48,hfn:54,sabados:35,domingos:35};
-let editando=null;
+let editando = null;
 
-function n(id){return parseFloat(document.getElementById(id).value)||0}
-function euros(x){return x.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'}
+function n(id) { return parseFloat(document.getElementById(id).value) || 0; }
+function euros(x) { return x.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'; }
 
-function calcular(){
- const f=n('base')+n('trienios')+n('destino')+n('especifico')+n('residencia')+n('turnos')+n('ayuda')+n('carrera');
- const extras=n('hn')*37+n('hf')*42+n('hno')*48+n('hfn')*54+n('sabados')*35+n('domingos')*35;
- const bruto=f+extras;
- const ppExtras=470.14;
- const baseSS=bruto+ppExtras;
- const baseIRPF=bruto;
- const cc=baseSS*n('pcc')/100;
- const mei=baseSS*n('pmei')/100;
- const formacion=baseSS*n('pformacion')/100;
- const irpf=baseIRPF*n('pirpf')/100;
- const ded=cc+mei+formacion+irpf;
- const neto=bruto-ded;
+function calcular() {
+    const f = n('base') + n('trienios') + n('destino') + n('especifico') + n('residencia') + n('turnos') + n('ayuda') + n('carrera');
+    const extras = n('hn') * 37 + n('hf') * 42 + n('hno') * 48 + n('hfn') * 54 + n('sabados') * 35 + n('domingos') * 35;
+    const bruto = f + extras;
+    const baseSS = bruto + 470.14;
+    const baseIRPF = bruto;
+    const cc = baseSS * n('pcc') / 100;
+    const mei = baseSS * n('pmei') / 100;
+    const formacion = baseSS * n('pformacion') / 100;
+    const irpf = baseIRPF * n('pirpf') / 100;
+    const ded = cc + mei + formacion + irpf;
+    const neto = bruto - ded;
 
- document.getElementById('resumen').innerHTML=`
- <p>Retribución fija: <strong>${euros(f)}</strong></p>
- <p>Horas y fines de semana: <strong>${euros(extras)}</strong></p>
- <p class="total">Bruto estimado: ${euros(bruto)}</p>
- <p>Contingencias comunes (${n('pcc').toFixed(2)}%): ${euros(cc)}</p>
- <p>MEI (${n('pmei').toFixed(2)}%): ${euros(mei)}</p>
- <p>Formación profesional (${n('pformacion').toFixed(2)}%): ${euros(formacion)}</p>
- <p>IRPF (${n('pirpf').toFixed(2)}%): ${euros(irpf)}</p>
- <p class="total">Total deducciones: ${euros(ded)}</p>
- <p class="total net">Neto estimado: ${euros(neto)}</p>`;
- return {bruto,ded,neto};
+    document.getElementById('resumen').innerHTML = `
+        <p>Retribución fija: <strong>${euros(f)}</strong></p>
+        <p>Horas y fines de semana: <strong>${euros(extras)}</strong></p>
+        <p class="total">Bruto estimado: ${euros(bruto)}</p>
+        <p>Contingencias comunes (${n('pcc').toFixed(2)}%): ${euros(cc)}</p>
+        <p>MEI (${n('pmei').toFixed(2)}%): ${euros(mei)}</p>
+        <p>Formación (${n('pformacion').toFixed(2)}%): ${euros(formacion)}</p>
+        <p>IRPF (${n('pirpf').toFixed(2)}%): ${euros(irpf)}</p>
+        <p class="total">Total deducciones: ${euros(ded)}</p>
+        <p class="total net">Neto estimado: ${euros(neto)}</p>
+    `;
+    return { bruto, ded, neto };
 }
 
-function leerFormulario(){
- return {
-   mes:document.getElementById('mes').value.trim(),
-   base:n('base'), trienios:n('trienios'), destino:n('destino'),
-   especifico:n('especifico'), residencia:n('residencia'), turnos:n('turnos'),
-   ayuda:n('ayuda'), carrera:n('carrera'),
-   hn:n('hn'), hf:n('hf'), hno:n('hno'), hfn:n('hfn'),
-   sabados:n('sabados'), domingos:n('domingos'),
-   pcc:n('pcc'), pmei:n('pmei'), pformacion:n('pformacion'), pirpf:n('pirpf')
- };
+function leerFormulario() {
+    return {
+        mes: document.getElementById('mes').value.trim(),
+        base: n('base'), trienios: n('trienios'), destino: n('destino'), especifico: n('especifico'),
+        residencia: n('residencia'), turnos: n('turnos'), ayuda: n('ayuda'), carrera: n('carrera'),
+        hn: n('hn'), hf: n('hf'), hno: n('hno'), hfn: n('hfn'), sabados: n('sabados'), domingos: n('domingos'),
+        pcc: n('pcc'), pmei: n('pmei'), pformacion: n('pformacion'), pirpf: n('pirpf')
+    };
 }
 
-function cargarFormulario(x){
- const ids=['base','trienios','destino','especifico','residencia','turnos','ayuda','carrera',
-            'hn','hf','hno','hfn','sabados','domingos','pcc','pmei','pformacion','pirpf'];
- ids.forEach(id=>{ if(x[id]!==undefined) document.getElementById(id).value=x[id]; });
- document.getElementById('mes').value=x.mes||'';
- calcular();
+function cargarFormulario(x) {
+    ['base', 'trienios', 'destino', 'especifico', 'residencia', 'turnos', 'ayuda', 'carrera', 'hn', 'hf', 'hno', 'hfn', 'sabados', 'domingos', 'pcc', 'pmei', 'pformacion', 'pirpf'].forEach(id => {
+        if (x[id] !== undefined) document.getElementById(id).value = x[id];
+    });
+    document.getElementById('mes').value = x.mes || '';
+    calcular();
 }
 
-function guardarNomina(){
- const datos=leerFormulario();
- if(!datos.mes){alert('Introduce el mes de cobro.');return}
+function guardarNomina() {
+    const datos = leerFormulario();
+    if (!datos.mes) { alert('Introduce el mes de cobro.'); return; }
+    const r = calcular();
+    datos.bruto = r.bruto; datos.ded = r.ded; datos.neto = r.neto;
+    
+    let nominas = JSON.parse(localStorage.getItem('mis_nominas') || '[]');
 
- const r=calcular();
- datos.bruto=r.bruto; datos.ded=r.ded; datos.neto=r.neto;
-
- let nominas=JSON.parse(localStorage.getItem('mis_nominas')||'[]');
-
- if(editando!==null){
-   nominas[editando]=datos;
-   editando=null;
-   document.getElementById('btnGuardar').textContent='Guardar mes';
-   document.getElementById('btnCancelar').style.display='none';
- }else{
-   const existente=nominas.findIndex(x=>x.mes.toLowerCase()===datos.mes.toLowerCase());
-   if(existente>=0){
-     if(confirm('Ya existe ese mes de cobro. ¿Quieres abrirlo para añadir/modificar datos?')){
-       cargarEdicion(existente);
-     }
-     return;
-   }
-   nominas.push(datos);
- }
-
- localStorage.setItem('mis_nominas',JSON.stringify(nominas));
- document.getElementById('mes').value='';
- cargarHistorial();
+    if (editando !== null) {
+        nominas[editando] = datos;
+        editando = null;
+        document.getElementById('btnGuardar').textContent = 'Guardar mes';
+        document.getElementById('btnCancelar').style.display = 'none';
+    } else {
+        const existente = nominas.findIndex(x => x.mes.toLowerCase() === datos.mes.toLowerCase());
+        if (existente >= 0) {
+            if (confirm('Ya existe ese mes. ¿Quieres abrirlo para modificarlo?')) {
+                cargarEdicion(existente);
+            }
+            return;
+        }
+        nominas.push(datos);
+    }
+    localStorage.setItem('mis_nominas', JSON.stringify(nominas));
+    document.getElementById('mes').value = '';
+    cargarHistorial();
 }
 
-function cargarEdicion(i){
- const datos=JSON.parse(localStorage.getItem('mis_nominas')||'[]');
- if(!datos[i]) return;
- editando=i;
- cargarFormulario(datos[i]);
- document.getElementById('btnGuardar').textContent='Guardar cambios';
- document.getElementById('btnCancelar').style.display='block';
- window.scrollTo({top:0,behavior:'smooth'});
+function cargarEdicion(i) {
+    const datos = JSON.parse(localStorage.getItem('mis_nominas') || '[]');
+    if (!datos[i]) return;
+    editando = i;
+    cargarFormulario(datos[i]);
+    document.getElementById('btnGuardar').textContent = 'Guardar cambios';
+    document.getElementById('btnCancelar').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function nuevoMes(){
- editando=null;
- document.getElementById('mes').value='';
- document.getElementById('btnGuardar').textContent='Guardar mes';
- document.getElementById('btnCancelar').style.display='none';
-
- // Restablece las cantidades variables del mes, manteniendo los conceptos y porcentajes base.
- ['hn','hf','hno','hfn','sabados','domingos'].forEach(id=>{
-   document.getElementById(id).value=0;
- });
- calcular();
- window.scrollTo({top:0,behavior:'smooth'});
+function nuevoMes() {
+    editando = null;
+    document.getElementById('mes').value = '';
+    document.getElementById('btnGuardar').textContent = 'Guardar mes';
+    document.getElementById('btnCancelar').style.display = 'none';
+    ['hn', 'hf', 'hno', 'hfn', 'sabados', 'domingos'].forEach(id => document.getElementById(id).value = 0);
+    calcular();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function cancelarEdicion(){
- editando=null;
- document.getElementById('btnGuardar').textContent='Guardar mes';
- document.getElementById('btnCancelar').style.display='none';
- document.getElementById('mes').value='';
+function cancelarEdicion() {
+    editando = null;
+    document.getElementById('btnGuardar').textContent = 'Guardar mes';
+    document.getElementById('btnCancelar').style.display = 'none';
+    document.getElementById('mes').value = '';
 }
 
-function borrarNomina(i){
- const datos=JSON.parse(localStorage.getItem('mis_nominas')||'[]');
- if(!datos[i]) return;
- if(confirm('¿Borrar la nómina de '+datos[i].mes+'?')){
-   datos.splice(i,1);
-   localStorage.setItem('mis_nominas',JSON.stringify(datos));
-   if(editando===i) cancelarEdicion();
-   cargarHistorial();
- }
+function borrarNomina(i) {
+    const datos = JSON.parse(localStorage.getItem('mis_nominas') || '[]');
+    if (!datos[i]) return;
+    if (confirm('¿Borrar la nómina de ' + datos[i].mes + '?')) {
+        datos.splice(i, 1);
+        localStorage.setItem('mis_nominas', JSON.stringify(datos));
+        
+        // Corrección de índice al borrar
+        if (editando === i) {
+            cancelarEdicion();
+        } else if (editando !== null && editando > i) {
+            editando--;
+        }
+        cargarHistorial();
+    }
 }
 
-function cargarHistorial(){
- const datos=JSON.parse(localStorage.getItem('mis_nominas')||'[]');
- const tbody=document.getElementById('historial');
- tbody.innerHTML=datos.map((x,i)=>`
- <tr onclick="cargarEdicion(${i})" style="cursor:pointer" title="Pulsa para editar">
-   <td><strong>${x.mes}</strong></td>
-   <td>${euros(x.bruto||0)}</td>
-   <td>${euros(x.ded||0)}</td>
-   <td class="net">${euros(x.neto||0)}</td>
- </tr>
- <tr>
-   <td colspan="4" style="padding:0 8px 8px;text-align:right">
-     <button class="danger" style="width:auto;padding:7px 10px;margin-top:0" onclick="event.stopPropagation();borrarNomina(${i})">Borrar</button>
-   </td>
- </tr>`).join('');
+function cargarHistorial() {
+    const datos = JSON.parse(localStorage.getItem('mis_nominas') || '[]');
+    document.getElementById('historial').innerHTML = datos.map((x, i) => `
+        <tr onclick="cargarEdicion(${i})" style="cursor:pointer" title="Pulsa para editar">
+            <td><strong>${x.mes}</strong></td>
+            <td>${euros(x.bruto || 0)}</td>
+            <td>${euros(x.ded || 0)}</td>
+            <td class="net">${euros(x.neto || 0)}</td>
+        </tr>
+        <tr>
+            <td colspan="4" style="padding:0 8px 8px;text-align:right">
+                <button class="danger" style="width:auto;padding:7px 10px;margin-top:0" onclick="event.stopPropagation();borrarNomina(${i})">Borrar</button>
+            </td>
+        </tr>
+    `).join('');
 }
 
-document.querySelectorAll('input').forEach(x=>x.addEventListener('input',calcular));
+document.querySelectorAll('input').forEach(x => x.addEventListener('input', calcular));
+if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
 calcular();
 cargarHistorial();
 </script>
-
-// Intentar solicitar almacenamiento persistente cuando el navegador lo permita.
-if (navigator.storage && navigator.storage.persist) {
-  navigator.storage.persist().catch(()=>{});
-}
-
-function exportarDatos(){
-  try{
-    const datos=localStorage.getItem('mis_nominas')||'[]';
-    const blob=new Blob([datos],{type:'application/json'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    const fecha=new Date().toISOString().slice(0,10);
-    a.href=url;
-    a.download='control_nominas_backup_'+fecha+'.json';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  }catch(e){
-    alert('No se ha podido crear la copia de seguridad.');
-  }
-}
-
-function importarDatos(event){
-  const file=event.target.files[0];
-  if(!file) return;
-  const reader=new FileReader();
-  reader.onload=function(){
-    try{
-      const datos=JSON.parse(reader.result);
-      if(!Array.isArray(datos)) throw new Error();
-      localStorage.setItem('mis_nominas',JSON.stringify(datos));
-      cargarHistorial();
-      alert('Copia restaurada correctamente.');
-    }catch(e){
-      alert('El archivo no parece una copia válida de Control de Nóminas.');
-    }
-    event.target.value='';
-  };
-  reader.readAsText(file);
-}
-
 </body>
 </html>
